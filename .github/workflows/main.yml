@@ -1,5 +1,5 @@
  on: 
- name: "nada"
+ name: "main"
   push:   
     branches:
       - main
