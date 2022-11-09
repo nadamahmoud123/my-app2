@@ -1,7 +1,7 @@
-on: 
- name: "nada"
-  push:   
-   branches:
+ on: 
+    name: "nada"
+    push:   
+    branches:
       - main
 
     jobs:
@@ -55,7 +55,5 @@ on:
            run: docker build -t ${{ secrets.DOCKER_USERNAME}}/docker-image-creation .
          - name: " pushing to docker hub "
            run: docker push ${{ secrets.DOCKER_USERNAME}}/docker-image-creation
-
-
 
 
