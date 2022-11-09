@@ -1,15 +1,11 @@
-name: "nada"
- on:
-
-
-  push:   
+on: 
+ name: "nada"
+ push:   
     branches:
       - main
 
-
-
-  jobs:
-   build:
+       jobs:
+      build:
     runs-on: ubuntu-latest 
     steps:
       - name: "testing github actions"
@@ -17,38 +13,38 @@ name: "nada"
       - name: "testing printing"
         run: echo ahmed
 
-   jobs:
-    build:
-    runs-on: ubuntu-latest 
-    steps:
+        jobs:
+        build:
+        runs-on: ubuntu-latest 
+        steps:
       - name: "before printing the folder containts"
         run: ls
       - uses: actions/checkout@v3
 
       - name: "after printing the folder containts"
         run: ls
-    jobs:
-  build:
-    runs-on: ubuntu-latest 
-    steps:
+        jobs:
+        build:
+        runs-on: ubuntu-latest 
+        steps:
       - uses: actions/checkout@v3
 
       - name: " login to dockerhub"
         run: docker login --username nadamahmoud123 --password khadiga27
 
 
-    jobs:
-    build:
-     runs-on: ubuntu-latest 
-     steps:
+        jobs:
+        build:
+        runs-on: ubuntu-latest 
+        steps:
       - uses: actions/checkout@v3
 
       - name: " login to dockerhub"
         run: docker login --username ${{ secrets.DOCKER_USERNAME}} --password ${{ secrets.DOCKER_TOKEN }}
 
 
-     jobs:
-       build:
+        jobs:
+         build:
         runs-on: ubuntu-latest 
         steps:
          - uses: actions/checkout@v3
@@ -58,7 +54,8 @@ name: "nada"
          - name: " building docker "
            run: docker build -t ${{ secrets.DOCKER_USERNAME}}/docker-image-creation .
          - name: " pushing to docker hub "
-        run: docker push ${{ secrets.DOCKER_USERNAME}}/docker-image-creation
+           run: docker push ${{ secrets.DOCKER_USERNAME}}/docker-image-creation
+
 
 
 
