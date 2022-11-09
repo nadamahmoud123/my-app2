@@ -1,11 +1,11 @@
  on: 
-    name: "nada"
-    push:   
+ name: "nada"
+  push:   
     branches:
       - main
 
-    jobs:
-     build:
+ jobs:
+   build:
     runs-on: ubuntu-latest 
     steps:
       - name: "testing github actions"
