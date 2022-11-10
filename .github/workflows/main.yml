@@ -1,58 +1,27 @@
+name: ci
+
 on:
-push:   
-   branches:
-      - main
+  push:
+    branches:
+      - "main"
 
-    jobs:
-    build:
-    runs-on: ubuntu-latest 
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: "testing github actions"
-        run: pwd
-      - name: "testing printing"
-        run: echo ahmed
-
-        jobs:
-        build:
-        runs-on: ubuntu-latest 
-        steps:
-      - name: "before printing the folder containts"
-        run: ls
-      - uses: actions/checkout@v3
-
-      - name: "after printing the folder containts"
-        run: ls
-        jobs:
-        build:
-        runs-on: ubuntu-latest 
-        steps:
-      - uses: actions/checkout@v3
-
-      - name: " login to dockerhub"
-        run: docker login --username nadamahmoud123 --password khadiga27
-
-
-        jobs:
-        build:
-        runs-on: ubuntu-latest 
-        steps:
-      - uses: actions/checkout@v3
-
-      - name: " login to dockerhub"
-        run: docker login --username ${{ secrets.DOCKER_USERNAME}} --password ${{ secrets.DOCKER_TOKEN }}
-
-
-        jobs:
-         build:
-        runs-on: ubuntu-latest 
-        steps:
-         - uses: actions/checkout@v3
-
-         - name: " login to dockerhub"
-           run: docker login --username ${{ secrets.DOCKER_USERNAME}} --password ${{ secrets.DOCKER_TOKEN }}
-         - name: " building docker "
-           run: docker build -t ${{ secrets.DOCKER_USERNAME}}/docker-image-creation .
-         - name: " pushing to docker hub "
-           run: docker push ${{ secrets.DOCKER_USERNAME}}/docker-image-creation
-
-
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN}}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/clockbox:latest
